@@ -2,15 +2,30 @@ var express = require('express');
 var jwt = require('jwt-simple');
 var app = express();
 
+var _ = require('lodash');
+
 app.use(require('body-parser').json());
 
 var secretkey = 'mysecretkey';
+var users = [{username: 'tomi' , password: 'pass'}]
+
+function findUserByUsername (username) {
+	return _.find(users, {username: username});
+}
+
+function validateUser (user, password) {
+	return user.password === password;
+}
+
 
 app.post('/session', function (request, response) {
-	var username = request.body.username;
-	//Validate password here
-	var token = jwt.encode({username: username}, secretkey);
+	var user = findUserByUsername(request.body.username);
+	if (!validateUser(user, request.body.password)) {
+		response.staus(401);
+		return response.send();
+	}
 
+	var token = jwt.encode({username: user.username}, secretkey);
 	response.json(token);
 })
 
