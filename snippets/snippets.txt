@@ -1,0 +1,7 @@
+Test token creation:
+
+curl -X POST -d '{"username" : "tomi"}' -H "Content-Type: application/json" localhost:3000/session
+
+Test get username:
+
+curl -H "X-Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRvbWkifQ.jMonUFN9SB8hnm418K-8B3Z-CYPFnDKFtKcS1j4rzWU" localhost:3000/user

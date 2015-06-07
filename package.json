@@ -1,0 +1,23 @@
+{
+  "name": "express-jwt",
+  "version": "0.0.0",
+  "description": "A simple way of getting started with express and jwt ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "express",
+    "jwt",
+    "authentication"
+  ],
+  "author": "Tomi",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.12.4",
+    "jwt-simple": "~0.3.0",
+    "body-parser": "~1.12.4",
+    "iconv-lite": "~0.4.10"
+  }
+}
