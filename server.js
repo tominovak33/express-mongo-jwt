@@ -21,8 +21,8 @@ function validateUser (user, password) {
 app.post('/session', function (request, response) {
 	var user = findUserByUsername(request.body.username);
 	if (!validateUser(user, request.body.password)) {
-		response.staus(401);
-		return response.send();
+		response.status(401);
+		return response.send("Authentication unsuccessful");
 	}
 
 	var token = jwt.encode({username: user.username}, secretkey);
