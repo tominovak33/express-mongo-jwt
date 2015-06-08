@@ -7,8 +7,9 @@ var bcrypt = require('bcrypt');
 
 app.use(require('body-parser').json());
 
-var secretkey = 'mysecretkey';
-var users = [{username: 'tomi' , password: '$2a$10$C503Ai1d7CDQ8mvLSYhqsOcPLvZCezEu85ZfwpHsFLYvD4oVTvtAW'}]
+
+var secretkey = 'mysecretkey'; //Change this
+var users = [{username: 'tomi' , password: '$2a$10$C503Ai1d7CDQ8mvLSYhqsOcPLvZCezEu85ZfwpHsFLYvD4oVTvtAW'}]; //Bcrypt hash of a password - use code from the snippets folder to test
 
 function findUserByUsername (username) {
 	return _.find(users, {username: username});

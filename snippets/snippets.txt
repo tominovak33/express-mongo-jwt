@@ -1,11 +1,6 @@
-Test token creation:
-
-curl -X POST -d '{"username" : "tomi"}' -H "Content-Type: application/json" localhost:3000/session
-
-With password:
+Get token password:
 
 curl -X POST -d '{"username": "tomi", "password": "pass"}' -H "Content-Type: application/json" localhost:3000/session
-
 
 Test get username:
 
