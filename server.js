@@ -24,7 +24,9 @@ function validateUser (user, password, callback) {
 
 
 app.post('/session', function (request, response, next) {
-	User.findOne({username: request.body.username}, function (error, user) {
+	User.findOne({username: request.body.username})
+		.select('password')
+		.exec(function (error, user) {
 		if (error) { return next(error) }
 		if (!user) {
 			response.status(401);
@@ -32,7 +34,7 @@ app.post('/session', function (request, response, next) {
 		}
 		bcrypt.compare(request.body.password, user.password, function (error, valid) {
 			if (error) { return next(error) };
-			if (!user) {
+			if (!valid) {
 				response.status(401);
 				return response.send('Authentication unsuccessful');
 			}
