@@ -2,7 +2,7 @@ Test getting token with password:
 
 curl -X POST -d '{"username": "tomi", "password": "pass"}' -H "Content-Type: application/json" localhost:3000/session
 
-Test getting username from token: (swap out token below with token returned from curl above)
+Test getting user data from token: (swap out token below with token returned from curl above)
 
 curl -H "X-Auth: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRvbWk5OSJ9.qMF0Ke8COjRnxbr9stSO9khjqgCqfgLSIIw9BPeafww" localhost:3000/user
 
