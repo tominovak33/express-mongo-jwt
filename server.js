@@ -23,22 +23,30 @@ function validateUser (user, password, callback) {
 }
 
 
-app.post('/session', function (request, response) {
-	var user = findUserByUsername(request.body.username);
-	validateUser(user, request.body.password, function (error, valid) {
-		if (error || !valid) {
+app.post('/session', function (request, response, next) {
+	User.findOne({username: request.body.username}, function (error, user) {
+		if (error) { return next(error) }
+		if (!user) {
 			response.status(401);
-			return response.send("Authentication unsuccessful");
+			return response.send('Authentication unsuccessful');
 		}
-		var token = jwt.encode({username: user.username}, secretkey);
-		response.json(token);
-	});
+		bcrypt.compare(request.body.password, user.password, function (error, valid) {
+			if (error) { return next(error) };
+			if (!user) {
+				response.status(401);
+				return response.send('Authentication unsuccessful');
+			}
+
+			var token = jwt.encode({username: user.username}, secretkey);
+			response.json(token);
+		})
+	})
 })
 
 app.post('/user', function (request, response, next) {
 	console.log("foo");
 	var user = new User({username: request.body.username});
-	bcrypt.hash(request.body.password, 20, function(error, hash) {
+	bcrypt.hash(request.body.password, 10, function(error, hash) {
 		user.password = hash;
 		user.save(function (error, user) {
 			if (error) {
@@ -53,8 +61,11 @@ app.post('/user', function (request, response, next) {
 app.get('/user', function (request, response) {
 	var token = request.headers['x-auth'];
 	var user = jwt.decode(token, secretkey);
+	
 	//Get user info from database here
-	response.json(user);
+	User.findOne({username: user.username}, function (error, user) {
+		response.json(user);
+	})
 })
 
 app.listen(3000);
