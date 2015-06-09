@@ -46,7 +46,6 @@ app.post('/session', function (request, response, next) {
 })
 
 app.post('/user', function (request, response, next) {
-	console.log("foo");
 	var user = new User({username: request.body.username});
 	bcrypt.hash(request.body.password, 10, function(error, hash) {
 		user.password = hash;
